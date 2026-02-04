@@ -1,0 +1,38 @@
+{
+  "success": true,
+  "repo_identifier": "playwright-sample-project",
+  "user_id": "shiva",
+  "patterns": {
+    "page_object_pattern": {
+      "base_class": "N/A",
+      "locator_style": "N/A",
+      "method_naming": "N/A",
+      "wait_strategy": "N/A",
+      "example_code": "N/A"
+    },
+    "test_pattern": {
+      "framework": "playwright",
+      "class_based": false,
+      "fixtures": [],
+      "setup_teardown": "N/A",
+      "assertion_style": "N/A",
+      "data_driven": true,
+      "example_code": "import ExcelUtil from \"@utils/ExcelUtil\";\nimport { test } from \"@base-test\";\nimport Allure from \"@allure\";\nimport HomeSteps from \"@uiSteps/HomeSteps\";\n\nconst testData = ExcelUtil.getTestDataArray(\"ContactUsTest\");\n// eslint-disable-next-line no-restricted-syntax\nfor (const data of testData) {\n    test(`${data.TestID} : ${data.Description}`, async ({ page }) => {\n        Allure.attachDetails(data.Description, data.Issue);\n        const home = new HomeSteps(page);\n        await home.launchApplication();\n        await home.enterContactUsDetails(data.Category, data.Product, data.Email, data.Subject);\n        await home.sendMessage();\n        await home.verifySuccessMessage(data.Message);\n    });\n}"
+    },
+    "naming_conventions": {
+      "page_objects": "N/A",
+      "tests": "ContactUsTest.spec.ts",
+      "locators": "N/A",
+      "methods": "camelCase",
+      "classes": "N/A"
+    },
+    "imports_template": [
+      "import ExcelUtil from \"@utils/ExcelUtil\"",
+      "import { test } from \"@base-test\"",
+      "import Allure from \"@allure\"",
+      "import HomeSteps from \"@uiSteps/HomeSteps\""
+    ],
+    "common_utilities": ["ExcelUtil", "Allure", "HomeSteps"]
+  },
+  "error": null
+}

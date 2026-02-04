@@ -1,0 +1,39 @@
+{
+  "success": true,
+  "repo_identifier": "playwright-sample-project",
+  "user_id": "manojkumaradapa",
+  "patterns": {
+    "page_object_pattern": {
+      "base_class": "SuiteTemplate",
+      "locator_style": "dictionary_format",
+      "method_naming": "camelCase",
+      "wait_strategy": "not applicable",
+      "example_code": "export default class SuiteTemplate {\n    public static getTemplate(sheet: string, testList: string) {\n        const suiteTemplate = `/* eslint-disable no-tabs */\n/* eslint-disable import/extensions */\n/* eslint-disable global-require */\nimport test from \"@playwright/test\";\n${testList}\n`;\n        return suiteTemplate;\n    }\n}"
+    },
+    "test_pattern": {
+      "framework": "playwright",
+      "class_based": false,
+      "fixtures": [],
+      "setup_teardown": "not applicable",
+      "assertion_style": "not applicable",
+      "data_driven": false,
+      "example_code": "import HomeSteps from \"@uiSteps/HomeSteps\";\nimport RegistrationSteps from \"@uiSteps/RegistrationSteps\";\nimport { test } from \"@base-test\";\nimport Allure from \"@allure\";\nimport ExcelUtil from \"@utils/ExcelUtil\";\n\nconst SHEET = \"LoginTest\";\nlet home: HomeSteps;\ntest.beforeEach(async ({ page }) => {\n    home = new HomeSteps(page);\n});\n\nconst data1 = ExcelUtil.getTestData(SHEET, \"TC01_ValidLogin\");\ntest(`${data1.TestID} - ${data1.Description}`, async () => {\n    Allure.attachDetails(data1.Description, data1.Issue);\n    await home.launchApplication();\n    await home.login(data1.UserName, data1.Password);\n    await home.validateLogin(data1.UserName);\n    await home.logout();\n});"
+    },
+    "naming_conventions": {
+      "page_objects": "*Page.ts",
+      "tests": "*Test.spec.ts",
+      "locators": "camelCase",
+      "methods": "camelCase",
+      "classes": "PascalCase"
+    },
+    "imports_template": [
+      "import test from \"@playwright/test\";",
+      "import HomeSteps from \"@uiSteps/HomeSteps\";",
+      "import RegistrationSteps from \"@uiSteps/RegistrationSteps\";",
+      "import Allure from \"@allure\";",
+      "import ExcelUtil from \"@utils/ExcelUtil\";"
+    ],
+    "common_utilities": ["ExcelUtil", "HomeSteps", "RegistrationSteps"]
+  },
+  "error": null
+}
